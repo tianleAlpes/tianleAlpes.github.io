@@ -3,237 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tianle GU - Resume</title>
+    <title>Tianle GU | Portfolio</title>
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #0b3252;
+            --bg-color: #f0f4f8; 
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --text-light: #7f8c8d;
+            --banner-height: 45vh; 
+        }
+
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
             line-height: 1.6;
-            color: #333;
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .page-container {
-            background-color: #ffffff;
-            padding: 50px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+
+        /* 顶部宽幅 Banner */
+        .banner-area {
+            width: 100%;
+            height: var(--banner-height);
+            background-image: url('alps_banner.webp'); 
+            background-size: cover;
+            background-position: center;
+            position: relative;
         }
-        h1 {
+
+        /* 主容器 */
+        .main-container {
+            max-width: 900px;
+            width: 95%;
+            margin-top: calc(var(--banner-height) * -0.15); 
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding-bottom: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 悬浮的个人名片 */
+        .profile-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 5px;
-            font-size: 2.5em;
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 30px;
+            align-items: center;
         }
-        .contact-info {
+
+        .profile-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* 占位符样式 */
+        .img-placeholder {
+            background: #e0e0e0;
+            color: #888;
+            font-size: 12px;
             text-align: center;
-            margin-bottom: 40px;
-            color: #7f8c8d;
-            font-size: 0.95em;
         }
-        .contact-info a {
-            color: #2980b9;
-            text-decoration: none;
+
+        h1 { font-size: 28px; margin: 0 0 5px; color: var(--primary-color); }
+        .tagline { color: var(--accent-color); font-weight: 500; font-size: 18px; margin-bottom: 0; }
+
+        .contact-links { text-align: left; font-size: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+        .contact-links div { margin-bottom: 0; }
+        .contact-links a { color: var(--accent-color); text-decoration: none; }
+
+        /* 内容区卡片 */
+        .section-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
+
         h2 {
-            color: #2980b9;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 8px;
-            margin-top: 35px;
-            font-size: 1.4em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .item {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
             margin-bottom: 25px;
         }
+
+        /* 经历与教育列表 */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-color);
+        }
+
         .item-header {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 5px;
+            align-items: flex-start;
         }
-        .item-title {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #2c3e50;
+
+        .title-group { display: flex; align-items: center; gap: 15px; }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            flex-shrink: 0;
         }
-        .item-date-loc {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            text-align: right;
+
+        .role { font-weight: bold; color: var(--primary-color); font-size: 17px; }
+        .institution { color: var(--text-light); font-size: 15px; margin-bottom: 10px; }
+        .date { font-size: 13px; color: var(--accent-color); font-weight: 600; text-align: right; }
+
+        /* 项目展示 */
+        .project-gallery {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
-        .item-subtitle {
-            font-style: italic;
-            color: #34495e;
-            margin-bottom: 10px;
+        .project-img-placeholder {
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
         }
-        ul {
-            margin-top: 0;
-            padding-left: 20px;
-            color: #444;
+
+        /* 出版物链接 */
+        .pub-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 14px;
+            word-break: break-all;
         }
-        li {
-            margin-bottom: 6px;
-        }
-        .pub-list {
-            padding-left: 0;
-            list-style-type: none;
-        }
-        .pub-list li {
-            margin-bottom: 12px;
-            padding-left: 20px;
-            text-indent: -20px;
+        .pub-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .profile-card { grid-template-columns: 1fr; padding: 30px; }
+            .contact-links { grid-template-columns: 1fr; text-align: center; }
+            .item-header { flex-direction: column; }
+            .date { text-align: left; margin-top: 5px; margin-left: 55px; }
+            .project-gallery { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="page-container">
+<div class="banner-area"></div>
 
-    <header>
-        <h1>Tianle GU</h1>
-        <div class="contact-info">
-            [Phone Number] | [Email Address] | <a href="https://www.linkedin.com/in/tianlegu/" target="_blank">LinkedIn Profile</a> | [City, Country]
+<div class="main-container">
+    
+    <header class="profile-card">
+        <div class="profile-left">
+            <div class="profile-photo img-placeholder">
+                <img src="me.jfif" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div class="tagline">Research Engineer</div>
+        </div>
+        <div class="profile-right">
+            <h1>Tianle GU</h1>
+            <div class="contact-links">
+                <div>📧 <a href="mailto: tianle.gu@grenoble-inp.fr" target="_blank">tianle.gu@grenoble-inp.fr</a></div>
+                <div>📍 Grenoble, France</div>
+                <div>🔗 <a href="https://www.linkedin.com/in/tianlegu/" target="_blank">LinkedIn</a></div>
+            </div>
         </div>
     </header>
 
-    <section>
-        <h2>Experience</h2>
+    <main class="content-area">
+        
+        <section class="section-card">
+            <h2>Experience</h2>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Lab SIMaP, Grenoble INP</span>
-                <span class="item-date-loc">March 2026 - Present | Grenoble, France</span>
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="title-group">
+                        <div class="logo-placeholder">
+                            <img src="simap.png" style="width: 100%; border-radius: 0;">
+                        </div>
+                        <div>
+                            <div class="role">Postdoctoral Researcher / Research Engineer</div>
+                            <div class="institution">Lab SIMaP, Grenoble INP</div>
+                        </div>
+                    </div>
+                    <div class="date">March 2026 - Present</div>
+                </div>
+                <ul>
+                    <li>Leading parallel R&D tracks in fundamental electrohydrodynamic two-phase flow and industrial vapor chamber applications.</li>
+                    <li>Managing vapor chamber research for high-power electronics cooling, sponsored by Mitsubishi Electric R&D Centre Europe.</li>
+                </ul>
             </div>
-            <div class="item-subtitle">Postdoctoral Researcher / Research Engineer</div>
-            <ul>
-                <li>Leading parallel R&D tracks in fundamental electrohydrodynamic two-phase flow and industrial vapor chamber applications.</li>
-                <li>Managing vapor chamber research for high-power electronics cooling, sponsored by Mitsubishi Electric R&D Centre Europe.</li>
-            </ul>
-        </div>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">ENSE3, Grenoble INP</span>
-                <span class="item-date-loc">January 2023 - Present | Grenoble, France</span>
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="title-group">
+                        <div class="logo-placeholder">
+                            <img src="inp.svg" style="width: 100%; border-radius: 0;">
+                        </div>
+                        <div>
+                            <div class="role">Enseignant Vacataire</div>
+                            <div class="institution">ENSE3, Grenoble INP</div>
+                        </div>
+                    </div>
+                    <div class="date">January 2023 - Present</div>
+                </div>
+                <ul>
+                    <li>Gave TD and TP in Heat and Mass Transfer and Thermodynamics (160 H).</li>
+                </ul>
             </div>
-            <div class="item-subtitle">Enseignant Vacataire</div>
-            <ul>
-                <li>Gave TD and TP in Heat and Mass Transfer and Thermodynamics (160 H).</li>
-            </ul>
-        </div>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Mitsubishi Electric R&D Centre Europe</span>
-                <span class="item-date-loc">March 2022 - August 2022 | Rennes, France</span>
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="title-group">
+                        <div class="logo-placeholder">
+                            <img src="mitsubishi.svg" style="width: 100%; border-radius: 0;">
+                        </div>
+                        <div>
+                            <div class="role">Intern, Thermal Engineer</div>
+                            <div class="institution">Mitsubishi Electric R&D Centre Europe</div>
+                        </div>
+                    </div>
+                    <div class="date">March 2022 - August 2022</div>
+                </div>
+                <ul>
+                    <li>Designed and fabricated a calorimeter for transient heat transfer.</li>
+                </ul>
             </div>
-            <div class="item-subtitle">Intern, Thermal Engineer</div>
-            <ul>
-                <li>Made a review of the state-of-the-art of calorimetry measurement for power electronics.</li>
-                <li>Designed and fabricated a calorimeter for transient heat transfer.</li>
-                <li>Measured the efficiency of integrated power modules using the calorimeter.</li>
-            </ul>
-        </div>
+        </section>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">TAL Education Group</span>
-                <span class="item-date-loc">October 2015 - March 2019 | Xi'an, China</span>
+        <section class="section-card">
+            <h2>Education</h2>
+
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="title-group">
+                        <div class="logo-placeholder">
+                            <img src="inp.svg" style="width: 100%; border-radius: 0;">
+                        </div>
+                        <div>
+                            <div class="role">PhD</div>
+                            <div class="institution">Grenoble INP, Université Grenoble Alpes</div>
+                        </div>
+                    </div>
+                    <div class="date">January 2023 - January 2026</div>
+                </div>
+                <p style="font-size: 14px; margin-top: 5px; margin-left: 55px;"><i>Thesis title: An experimental study of bubble dynamics and oscillations in the presence of electric fields in a dielectric fluid: deconstructing polarization and Coulomb forces in terrestrial and microgravity environments.</i></p>
             </div>
-            <div class="item-subtitle">Teacher, Team Leader</div>
-            <ul>
-                <li>Taught higher mathematics.</li>
-                <li>Selected and trained high school mathematics teachers.</li>
-                <li>Created new curriculum products and admission content.</li>
-                <li>Examined and improved course quality based on data analysis.</li>
-            </ul>
-        </div>
-    </section>
 
-    <section>
-        <h2>Education</h2>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Grenoble INP, Université Grenoble Alpes</span>
-                <span class="item-date-loc">January 2023 - January 2026 | Grenoble, France</span>
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="title-group">
+                        <div class="logo-placeholder">
+                            <img src="inp.svg" style="width: 100%; border-radius: 0;">
+                        </div>
+                        <div>
+                            <div class="role">MSc in Fluid Mechanics and Energetics (Double Degree)</div>
+                            <div class="institution">ENSE3, Grenoble INP</div>
+                        </div>
+                    </div>
+                    <div class="date">September 2020 - September 2022</div>
+                </div>
             </div>
-            <div class="item-subtitle">PhD</div>
-            <ul>
-                <li>Thesis title: An experimental study of bubble dynamics and oscillations in the presence of electric fields in a dielectric fluid: deconstructing polarization and Coulomb forces in terrestrial and microgravity environments.</li>
-            </ul>
-        </div>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">ENSE3, Grenoble INP</span>
-                <span class="item-date-loc">September 2020 - September 2022 | Grenoble, France</span>
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="title-group">
+                        <div class="logo-placeholder">
+                            <img src="ist.png" style="width: 100%; border-radius: 0;">
+                        </div>
+                        <div>
+                            <div class="role">MSc in Energy Engineering and Management (Double Degree)</div>
+                            <div class="institution">Instituto Superior Técnico, Université de Lisboa</div>
+                        </div>
+                    </div>
+                    <div class="date">September 2020 - September 2022</div>
+                </div>
             </div>
-            <div class="item-subtitle">MSc in Fluid Mechanics and Energetics (Double Degree) | GPA: 15.66/20</div>
-        </div>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Instituto Superior Técnico, Universidade de Lisboa</span>
-                <span class="item-date-loc">September 2020 - September 2022 | Lisbon, Portugal</span>
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="title-group">
+                        <div class="logo-placeholder">
+                            <img src="xjtu.png" style="width: 100%; border-radius: 0;">
+                        </div>
+                        <div>
+                            <div class="role">BEng in Nuclear Engineering</div>
+                            <div class="institution">Xi'an Jiaotong University</div>
+                        </div>
+                    </div>
+                    <div class="date">September 2012 - July 2016</div>
+                </div>
             </div>
-            <div class="item-subtitle">MSc in Energy Engineering and Management (Double Degree) | GPA: 17/20</div>
-        </div>
+        </section>
 
-        <div class="item">
+        <section class="section-card">
+            <h2>Research Projects</h2>
             <div class="item-header">
-                <span class="item-title">Xi'an Jiaotong University</span>
-                <span class="item-date-loc">September 2012 - July 2016 | Xi'an, China</span>
+                <div class="role">Project AEBIO: AC Electrohydrodynamic Bubble Interface Oscillations</div>
+                <div class="date">April 2025 and March 2026</div>
             </div>
-            <div class="item-subtitle">BEng in Nuclear Engineering</div>
-        </div>
-    </section>
-
-    <section>
-        <h2>Projects</h2>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Project AEBIO: AC Electrohydrodynamic Bubble Interface Oscillations</span>
-                <span class="item-date-loc">April 2025 and March 2026</span>
+            <p style="font-size: 14px; margin-top: 5px;"><i>68ème & 70ème campagne de Vols Paraboliques CNES (VP183 & VP190)</i></p>
+            <p>Designed and engineered the AEBIO platform, a modular, flight-certified experimental system for investigating bubble dynamics in terrestrial and microgravity environments.</p>
+            
+            <div class="project-gallery">
+                <div class="project-img-placeholder img-placeholder">
+                    <img src="setup.jfif" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </div>
+                <div class="project-img-placeholder img-placeholder">
+                    <img src="aebio.jfif" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </div>
             </div>
-            <div class="item-subtitle">68ème & 70ème campagne de Vols Paraboliques CNES (VP183 & VP190)</div>
-            <ul>
-                <li>Designed and engineered the AEBIO platform, a modular, flight-certified experimental system for investigating bubble dynamics in terrestrial and microgravity environments.</li>
-                <li>Engineered an EHD boiling system with multi-channel thermal sensing.</li>
-                <li>Developed a synchronized data acquisition pipeline that integrated high-speed videography with real-time electrical measurements and developed custom DAQ software.</li>
-                <li>Integrated a semi-automated image processing workflow using Python/OpenCV to extract quantitative geometric data (volume, aspect ratio, contact angle) from high-speed recordings.</li>
-                <li>Decoupled polarization and Coulomb forces, discovering novel EHD phase-locking mechanisms.</li>
-            </ul>
-        </div>
-    </section>
+        </section>
 
-    <section>
-        <h2>Publications</h2>
-        <ol class="pub-list">
-            <li>T. Gu and S. Siedel. "Bubble oscillations and dynamics under periodic electric fields". In: Experimental Thermal and Fluid Science 172 (Jan. 2026). DOI: 10.1016/j.expthermflusci.2025.111668</li>
-            <li>T. Gu and S. Siedel. "Combined polarization and electrophoretic influence on bubble dynamics in leaky dielectric fluids". In: Experimental Thermal and Fluid Science 170 (Jan. 2026). DOI: 10.1016/j.expthermflusci.2025.111601.</li>
-            <li>S. Siedel and T. Gu. "Toward a complete understanding of quasi-Static bubble growth and departure". In: Proceedings of the National Academy of Sciences 121.16 (Apr. 2024). DOI: 10.1073/pnas.2317202121.</li>
-        </ol>
-    </section>
+        <section class="section-card">
+            <h2>Selected Publications</h2>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <strong>Bubble oscillations and dynamics under periodic electric fields</strong><br>
+                    <small>Exp. Thermal and Fluid Science (Jan. 2026)</small><br>
+                    <a href="https://doi.org/10.1016/j.expthermflusci.2025.111668" target="_blank" class="pub-link">doi.org/10.1016/j.expthermflusci.2025.111668</a>
+                </div>
+                <div>
+                    <strong>Combined polarization and electrophoretic influence on bubble dynamics in leaky dielectric fluids</strong><br>
+                    <small>Exp. Thermal and Fluid Science (Jan. 2026)</small><br>
+                    <a href="https://doi.org/10.1016/j.expthermflusci.2025.111601" target="_blank" class="pub-link">doi.org/10.1016/j.expthermflusci.2025.111601</a>
+                </div>
+                <div>
+                    <strong>Toward a complete understanding of quasi-Static bubble growth and departure</strong><br>
+                    <small>Proceedings of the National Academy of Sciences (Apr. 2024)</small><br>
+                    <a href="https://doi.org/10.1073/pnas.2317202121" target="_blank" class="pub-link">doi.org/10.1073/pnas.2317202121</a>
+                </div>
+            </div>
+        </section>
 
-    <section>
-        <h2>Communications in Conferences and Workshops</h2>
-        <ol class="pub-list">
-            <li>S. Siedel and T. Gu. "Effets dynamiques de champ électriques AC sur des bulles en croissance: Préparation de l'expérience AEBIO". Colloque Annuel du GDR MFA 2799, La Rochelle, France (Oct. 2025).</li>
-            <li>T. Gu and S. Siedel. "Adiabatic bubble growth and detachment under AC/periodic electric fields". Received the best oral communication award in The XI International Symposium on Electrohydrodynamics, Seville, Spain (Jun. 2025).</li>
-            <li>S. Siedel and T. Gu. "Dynamic effects of AC electric fields on growing bubbles: AEBIO experiment". Colloque Annuel du GDR MFA 2799, Hyères, France (Nov. 2024).</li>
-            <li>T. Gu and S. Siedel. "DC electric field impact on bubble dynamics". The 54th European Two-Phase Flow Group Meeting, Dublin, Ireland (Sep. 2024).</li>
-            <li>T. Gu and S. Siedel. "AC electric field impact on bubble dynamics". The 54th European Two-Phase Flow Group Meeting, Dublin, Ireland (Sep. 2024).</li>
-        </ol>
-    </section>
-
+    </main>
 </div>
 
 </body>
